@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgres:
+    env_file: .env
+    image: postgres:14-alpine
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - '${PGPORT:-5433}:5433'
+    environment:
+      - PGDATABASE=${DEV_DB_DATABASE}
+      - PGUSER=${DEV_DB_USERNAME}
+      - PGPASSWORD=${DEV_DB_PASSWORD}
+      - POSTGRES_DB=${DEV_DB_DATABASE}
+      - POSTGRES_USER=${DEV_DB_USERNAME}
+      - POSTGRES_PASSWORD=${DEV_DB_PASSWORD}
