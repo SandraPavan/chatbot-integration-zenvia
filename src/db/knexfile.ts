@@ -1,19 +1,21 @@
-import { knexSnakeCaseMappers } from 'objection'
-import * as dotenv from 'dotenv'
-import { type Knex } from 'knex'
+import { knexSnakeCaseMappers } from 'objection';
+import * as dotenv from 'dotenv';
+import { type Knex } from 'knex';
 
-dotenv.config()
+dotenv.config();
 
-export type DbOptionsType = Knex.Config & { connection: Knex.PgConnectionConfig }
+export type DbOptionsType = Knex.Config & {
+  connection: Knex.PgConnectionConfig;
+};
 
 export const baseConfig = {
   client: 'postgresql',
   connection: {
-    host: process.env.DEV_DB_URL || '127.0.0.1',
-    port: parseInt(process.env.DEV_DB_PORT || '5432'),
-    user: process.env.DEV_DB_USERNAME || 'default', // todo resolve the .env not reading
-    password: process.env.DEV_DB_PASSWORD || "secret",
-    database: process.env.DEV_DB_DATABASE || 'engine',
+    host: 'localhost',
+    port: parseInt('5432'),
+    user: 'default',
+    password: 'secret',
+    database: 'postgres',
   },
   searchPath: ['knex', 'public'],
   pool: {
@@ -32,18 +34,18 @@ export const baseConfig = {
   // so table names are in snake case
   // but we can use camelCase fields per default
   ...knexSnakeCaseMappers(),
-} as const satisfies DbOptionsType
+} as const satisfies DbOptionsType;
 
 export const getDbOptionsFromBaseConfig = (baseConfig: DbOptionsType) => {
   return (newConfig?: DbOptionsType): DbOptionsType => {
     return {
       ...baseConfig,
       ...newConfig,
-    }
-  }
-}
+    };
+  };
+};
 
-export const getDbOptions = getDbOptionsFromBaseConfig(baseConfig)
+export const getDbOptions = getDbOptionsFromBaseConfig(baseConfig);
 
 export default {
   development: getDbOptions(),
@@ -54,4 +56,4 @@ export default {
       max: 100,
     },
   }),
-}
+};

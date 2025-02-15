@@ -6,6 +6,8 @@ import { UserModule } from './user/user.module';
 import { KnexModule } from '@nestjsplus/knex';
 import { AuthorizationModule } from './decorators/authorization.module';
 import { ConversationModule } from './conversation/conversation.module';
+import { WebhookModule } from './webhook/webhook.module';
+import { LlmModule } from './llm/llm.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { ConversationModule } from './conversation/conversation.module';
     UserModule,
     AuthorizationModule.forRootAsync(),
     ConversationModule,
+    WebhookModule,
+    LlmModule,
   ],
   controllers: [AppController, UserController],
   providers: [AppService],

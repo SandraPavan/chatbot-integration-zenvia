@@ -7,7 +7,7 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     ports:
-      - '${PGPORT:-5433}:5433'
+      - '${PGPORT:-5432}:5432'
     environment:
       - PGDATABASE=${DEV_DB_DATABASE}
       - PGUSER=${DEV_DB_USERNAME}
