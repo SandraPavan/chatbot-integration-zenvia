@@ -3,9 +3,10 @@ import { WebhookService } from './webhook.service';
 import { WebhookController } from './webhook.controller';
 import { LlmService } from '../llm/llm.service';
 import { ConversationService } from '../conversation/conversation.service';
+import { EngineService } from '../engine/engine.service';
 
 @Module({
-  providers: [WebhookService, LlmService, ConversationService],
+  providers: [WebhookService, LlmService, ConversationService, EngineService],
   controllers: [WebhookController],
 })
 export class WebhookModule {}

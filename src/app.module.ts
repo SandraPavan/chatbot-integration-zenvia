@@ -8,6 +8,8 @@ import { AuthorizationModule } from './decorators/authorization.module';
 import { ConversationModule } from './conversation/conversation.module';
 import { WebhookModule } from './webhook/webhook.module';
 import { LlmModule } from './llm/llm.module';
+import { EngineModule } from './engine/engine.module';
+import { PreferencesModule } from './preferences/preferences.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { LlmModule } from './llm/llm.module';
     ConversationModule,
     WebhookModule,
     LlmModule,
+    EngineModule,
+    PreferencesModule,
   ],
   controllers: [AppController, UserController],
   providers: [AppService],
