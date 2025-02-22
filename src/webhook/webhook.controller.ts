@@ -25,6 +25,7 @@ export class WebhookController {
       providers: Providers.ZENVIA,
       from: bodyWebhook.message.from,
       to: bodyWebhook.message.to,
+      channel: bodyWebhook.channel,
     });
   }
 }

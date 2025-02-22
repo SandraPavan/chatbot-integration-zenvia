@@ -13,6 +13,7 @@ export class WebhookService {
     customer: any;
     from: string;
     to: string;
+    channel: string;
   }): Promise<any> {
     const engineManagerConversation = await this.engineService.man(bodyWebhook);
     return engineManagerConversation;

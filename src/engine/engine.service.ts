@@ -22,6 +22,7 @@ export class EngineService {
     customer: any;
     from: string;
     to: string;
+    channel: string;
   }): Promise<any> {
     const preferences = await this.preferenceService.findByCustomerId(
       bodyWebhook.customer.id,
@@ -73,13 +74,39 @@ export class EngineService {
         PreferencesType.INTEGRATION,
       );
 
-    await this.zenviaService.sendMessageWpp({
-      from: bodyWebhook.from,
-      to: bodyWebhook.to,
-      message: responseMessage,
-      token: preferencesIntegration[0].values.token,
-    });
-
+    await this.attemptMessage(
+      bodyWebhook,
+      preferencesIntegration,
+      responseMessage,
+    );
     return { message: responseMessage };
+  }
+
+  private async attemptMessage(
+    bodyWebhook: any,
+    preferencesIntegration: any,
+    responseMessage: string,
+  ) {
+    switch (bodyWebhook.channel) {
+      case 'whatsapp':
+        await this.zenviaService.sendMessageWpp({
+          from: bodyWebhook.from,
+          to: bodyWebhook.to,
+          message: responseMessage,
+          token: preferencesIntegration[0].values.token,
+        });
+        break;
+      case 'instagram':
+        await this.zenviaService.sendMessageInstagram({
+          from: bodyWebhook.from,
+          to: bodyWebhook.to,
+          message: responseMessage,
+          token: preferencesIntegration[0].values.token,
+        });
+        break;
+      default:
+        break;
+    }
+    return;
   }
 }
