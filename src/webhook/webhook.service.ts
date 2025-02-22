@@ -10,6 +10,7 @@ export class WebhookService {
     message: string;
     externalId: string;
     providers: Providers;
+    customer: any;
   }): Promise<any> {
     const engineManagerConversation = await this.engineService.man(bodyWebhook);
     return engineManagerConversation;

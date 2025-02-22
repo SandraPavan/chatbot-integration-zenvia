@@ -7,21 +7,26 @@ export class LlmService {
     this.llmMessage = [];
   }
 
-  handleLLM = async (message: string, conversation: any[]): Promise<any> => {
+  handleLLM = async (
+    message: string,
+    conversation: any[],
+    preferenceValues: any,
+  ): Promise<any> => {
     const responseMessage = await this.sendMessageToChatGPT(
       message,
       conversation,
+      preferenceValues,
     );
     return responseMessage;
   };
 
-  sendMessageToChatGPT = async (message, context = []) => {
+  sendMessageToChatGPT = async (message, context = [], preferenceValues) => {
     const payload = {
-      model: 'gpt-4', // or gpt-4 if available
+      model: preferenceValues.model, // or gpt-4 if available
       messages: [
         {
           role: 'system',
-          content: `You are a helpful assistant that can answer questions and help with tasks.`,
+          content: preferenceValues.content,
         },
         {
           role: 'system',
@@ -31,10 +36,12 @@ export class LlmService {
           }),
         },
       ],
+      temperature: 0.25, // 0 - 2: lower is more deterministic, higher is more creative
+      presence_penalty: -1, // -2 - 2: higher is more likely to include new topics (reducing repetition), lower is more likely to repeat topics
+      frequency_penalty: 0.1, // -2 - 2: higher discourage word repetition. lower make the model more likely to repeat itself.
       stream: true,
     };
 
-    // When you start to validate the car price use this website: https://veiculos.fipe.org.br/
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
