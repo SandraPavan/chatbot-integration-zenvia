@@ -11,6 +11,8 @@ export class WebhookService {
     externalId: string;
     providers: Providers;
     customer: any;
+    from: string;
+    to: string;
   }): Promise<any> {
     const engineManagerConversation = await this.engineService.man(bodyWebhook);
     return engineManagerConversation;

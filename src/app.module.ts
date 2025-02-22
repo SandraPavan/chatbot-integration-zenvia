@@ -10,6 +10,7 @@ import { WebhookModule } from './webhook/webhook.module';
 import { LlmModule } from './llm/llm.module';
 import { EngineModule } from './engine/engine.module';
 import { PreferencesModule } from './preferences/preferences.module';
+import { ZenviaService } from './zenvia/zenvia.service';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { PreferencesModule } from './preferences/preferences.module';
     PreferencesModule,
   ],
   controllers: [AppController, UserController],
-  providers: [AppService],
+  providers: [AppService, ZenviaService],
 })
 
 export class AppModule {}

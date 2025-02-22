@@ -4,14 +4,15 @@ import { LlmService } from '../llm/llm.service';
 import { Providers } from '../conversation/entities/conversation.entity';
 import { Role } from '../conversation/entities/content.entity';
 import { PreferencesService } from '../preferences/preferences.service';
-import { PreferencesType } from 'src/preferences/entities/preferences.entity';
-
+import { PreferencesType } from '../preferences/entities/preferences.entity';
+import { ZenviaService } from '../zenvia/zenvia.service';
 @Injectable()
 export class EngineService {
   constructor(
     private readonly llmService: LlmService,
     private readonly conversationService: ConversationService,
     private readonly preferenceService: PreferencesService,
+    private readonly zenviaService: ZenviaService,
   ) {}
 
   async man(bodyWebhook: {
@@ -19,6 +20,8 @@ export class EngineService {
     externalId: string;
     providers: Providers;
     customer: any;
+    from: string;
+    to: string;
   }): Promise<any> {
     const preferences = await this.preferenceService.findByCustomerId(
       bodyWebhook.customer.id,
@@ -64,6 +67,18 @@ export class EngineService {
     });
 
     // TODO: request integration layer to response the message
+    const preferencesIntegration =
+      await this.preferenceService.findByCustomerId(
+        bodyWebhook.customer.id,
+        PreferencesType.INTEGRATION,
+      );
+
+    await this.zenviaService.sendMessageWpp({
+      from: bodyWebhook.from,
+      to: bodyWebhook.to,
+      message: responseMessage,
+      token: preferencesIntegration[0].values.token,
+    });
 
     return { message: responseMessage };
   }

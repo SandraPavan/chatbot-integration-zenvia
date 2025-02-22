@@ -6,7 +6,7 @@ import { ConversationService } from '../conversation/conversation.service';
 import { EngineService } from '../engine/engine.service';
 import { JwtAdapterService } from '../decorators/jwt-adapter.service';
 import { PreferencesService } from '../preferences/preferences.service';
-
+import { ZenviaService } from '../zenvia/zenvia.service';
 @Module({
   providers: [
     WebhookService,
@@ -15,6 +15,7 @@ import { PreferencesService } from '../preferences/preferences.service';
     EngineService,
     JwtAdapterService,
     PreferencesService,
+    ZenviaService,
   ],
   controllers: [WebhookController],
 })
