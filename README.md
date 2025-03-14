@@ -58,6 +58,25 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+# Configuração do Ambiente
+
+Certifique-se de criar um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
+
+```properties
+# DATABASE ########################################
+DEV_DB_URL=
+DEV_DB_DATABASE=
+DEV_DB_PORT=
+DEV_DB_USERNAME=
+DEV_DB_PASSWORD=
+
+# SECRET KEY #####################################
+SECRET_KEY=
+
+# API KEYS ########################################
+REACT_APP_OPENAI_API_KEY=
+token=
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

@@ -18,6 +18,7 @@ export class WebhookController {
   ): Promise<any> {
     const accessToken = token.split('Bearer ')[1];
     const customer = await this.jwtAdapterService.decodeToken(accessToken);
+    console.log('customer', customer);
     return this.webhookService.handleWebhook({
       externalId: bodyWebhook.id,
       message: bodyWebhook.message.contents[0].text,

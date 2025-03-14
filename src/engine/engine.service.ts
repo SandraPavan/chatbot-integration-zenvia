@@ -73,12 +73,13 @@ export class EngineService {
         bodyWebhook.customer.id,
         PreferencesType.INTEGRATION,
       );
+    await this.zenviaService.sendMessageWpp({
+      from: bodyWebhook.from,
+      to: bodyWebhook.to,
+      message: responseMessage,
+      token: preferencesIntegration[0].values.token,
+    });
 
-    await this.attemptMessage(
-      bodyWebhook,
-      preferencesIntegration,
-      responseMessage,
-    );
     return { message: responseMessage };
   }
 

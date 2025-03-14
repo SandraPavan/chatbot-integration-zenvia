@@ -11,6 +11,7 @@ export class PreferencesService {
       .andWhere({ deleted: false });
 
     if (type) {
+      console.log(preferences);
       return preferences.filter((preference) => preference.type === type);
     }
 

@@ -7,6 +7,9 @@ export enum PreferencesType {
 }
 
 export class Preferences extends Model {
+  findPreferencesByCustomer(id: any) {
+    throw new Error('Method not implemented.');
+  }
   static tableName = 'preferences';
 
   id: string;
